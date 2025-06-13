@@ -5,10 +5,12 @@ pipeline {
     stage('Deploy to App EC2') {
       steps {
         sshagent(credentials: ['app-ssh-key']) {
-          sh '''
-            ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.90 << 'EOF'
+          sh """
+            ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.90 '
               set -e
-              cd ~/hello-world-repo || git clone https://github.com/Anuhya2312/hello-world-repo.git ~/hello-world-repo
+              if [ ! -d ~/hello-world-repo ]; then
+                git clone https://github.com/Anuhya2312/hello-world-repo.git ~/hello-world-repo
+              fi
               cd ~/hello-world-repo
               git reset --hard
               git clean -fd
@@ -17,8 +19,8 @@ pipeline {
               docker rm hello-container || true
               docker build -t hello-world-git .
               docker run -d -p 5000:5000 --name hello-container hello-world-git
-            EOF
-          '''
+            '
+          """
         }
       }
     }
