@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'anuhya23/vote'  // Replace with your Docker Hub repo
+        IMAGE_NAME = 'anuhya23/vote'
         IMAGE_TAG = 'v23'
     }
 
