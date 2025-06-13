@@ -7,7 +7,7 @@ pipeline {
         sshagent(credentials: ['app-ssh-key']) {
           sh """
             ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.90 '
-              set -ex
+              set -e
               if [ ! -d ~/hello-world-repo ]; then
                 git clone https://github.com/Anuhya2312/hello-world-repo.git ~/hello-world-repo
               fi
