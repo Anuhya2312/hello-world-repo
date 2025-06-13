@@ -1,19 +1,17 @@
-# Use the official Python 3.8 slim image as the base image
+# Use Python 3.8 slim as the base image
 FROM python:3.8-slim
 
-# Set the working directory inside the container to /app
-# All subsequent commands (like COPY, RUN) will be executed from this directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy the requirements.txt file from your local machine to the container's working directory
+# Copy dependencies file
 COPY requirements.txt .
 
-# Install all the Python dependencies listed in requirements.txt using pip
+# Install Python packages
 RUN pip install -r requirements.txt
 
-# Copy all the contents of the current local directory to the /app directory in the container
+# Copy all project files
 COPY . .
 
-# Specify the default command to run when the container starts
-# This will run `python app.py` to start your Flask (or other Python) application
+# Run the app
 CMD ["python", "app.py"]
